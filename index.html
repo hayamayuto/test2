@@ -109,7 +109,7 @@ document.getElementById("timing").innerHTML = (EndTime - StartTime)/1000 + "ç§’ã
 
 function getURL(img) {
       Tesseract.recognize(
-        'https://tesseract.projectnaptha.com/img/eng_bw.png',
+        'img',
         'eng',
         { logger: m => console.log(m) }
       ).then(({ data: { text } }) => {
