@@ -77,7 +77,15 @@ function loadLocalImage(e) {
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
         ctx.stroke();
-        getURL(img);
+        Tesseract.recognize(
+        'img',
+        'eng',
+        { logger: m => console.log(m) }
+        ).then(({ data: { text } }) => {
+          string = text;
+          getURL();
+          console.log("raw string: " + string);
+        })
       }
     }
     reader.readAsDataURL(fileData);
@@ -107,15 +115,9 @@ console.log("The process has been completed successfully in " + (EndTime - Start
 document.getElementById("timing").innerHTML = (EndTime - StartTime)/1000 + "秒で処理が正常に完了しました。"
 }
 
-function getURL(img) {
-      Tesseract.recognize(
-        'img.src',
-        'eng',
-        { logger: m => console.log(m) }
-      ).then(({ data: { text } }) => {
-        console.log(text);
-        string = text;
-        console.log("raw string: " + string);
+function getURL() {
+      
+        
         string = string.replace(/ /, "");
         string = string.replace(/　/, "");
         //string = string.replace(/\r?\n/g, '');
