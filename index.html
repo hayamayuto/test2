@@ -114,7 +114,6 @@ function getURL(img) {
         { logger: m => console.log(m) }
       ).then(({ data: { text } }) => {
         console.log(text);
-      })
         string = text;
         console.log("raw string: " + string);
         string = string.replace(/ /, "");
@@ -133,10 +132,7 @@ function getURL(img) {
         }
           getEndTime(StartTime);
         })
-        .catch(function(err){
-          console.error(err);
-        });
-      }
+       }
     </script>
   </body>
 </html>
