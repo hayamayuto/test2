@@ -77,15 +77,27 @@ function loadLocalImage(e) {
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
         ctx.stroke();
-        Tesseract.recognize(
-        'img',
-        'eng',
-        { logger: m => console.log(m) }
-        ).then(({ data: { text } }) => {
-          string = text;
-          getURL();
-          console.log("raw string: " + string);
-        })
+        //Tesseract.recognize(
+        //'img',
+        //'eng',
+        //{ logger: m => console.log(m) }
+        //).then(({ data: { text } }) => {
+          //string = text;
+          //getURL();
+          //console.log("raw string: " + string);
+        //})
+        const { createWorker } = require('tesseract.js');
+
+const worker = createWorker();
+
+(async () => {
+  await worker.load();
+  await worker.loadLanguage('eng');
+  await worker.initialize('eng');
+  const { data: { text } } = await worker.recognize('https://tesseract.projectnaptha.com/img/eng_bw.png');
+  console.log(text);
+  await worker.terminate();
+})();
       }
     }
     reader.readAsDataURL(fileData);
